@@ -28,7 +28,8 @@ const onSubmitHandler = async (e) => {
     if (state === "Sign Up") {
       const { data } = await axios.post(
         backendUrl + "/api/auth/register",
-        { name, email, password }
+        { name, email, password },
+        { withCredentials: true }   // ✅ add this
       );
 
       if (data.success) {
@@ -40,7 +41,7 @@ const onSubmitHandler = async (e) => {
         }
 
         // 🔥 SIGNUP SUCCESS → DASHBOARD
-        window.location.href = "http://localhost:5174";
+        window.location.href = "/dashboard";   // ✅ fixed
       } else {
         toast.error(data.message);
       }
@@ -50,7 +51,8 @@ const onSubmitHandler = async (e) => {
     else {
       const { data } = await axios.post(
         backendUrl + "/api/auth/login",
-        { email, password }
+        { email, password },
+        { withCredentials: true }   // ✅ add this
       );
 
       if (data.success) {
@@ -61,7 +63,7 @@ const onSubmitHandler = async (e) => {
         }
 
         // 🔥 LOGIN SUCCESS → DASHBOARD
-        window.location.href = "http://localhost:5174";
+        window.location.href = "/dashboard";   // ✅ fixed
       } else {
         toast.error(data.message);
       }
@@ -70,6 +72,7 @@ const onSubmitHandler = async (e) => {
     toast.error(error.message);
   }
 };
+
 
   
   return (
