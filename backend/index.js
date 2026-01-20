@@ -23,18 +23,13 @@ const allowedOrigins=["http://localhost:5173"]
 app.use(cors({origin:allowedOrigins,credentials:true}));
 // app.use(bodyParser.json());
  
-//....................
-//Database connection
-//....................
+ 
 mongoose.connect(url)
   .then(() => console.log("DB connected"))
   .catch(err => console.log(err));
 
 
-
-//...................
-//Holdings database 
-//...................
+ 
 app.get("/addsholding",async(req,res)=>{
  
   let tempHolding=[
@@ -160,9 +155,7 @@ app.get("/addsholding",async(req,res)=>{
 })
 
 
-//...................
-//Position database 
-//...................
+ 
 app.get("/addsposition",async(req,res)=>{
   let tempPosition=[
   {
@@ -195,9 +188,7 @@ if(count===0){
 }
 })
 
-//..............
-//dashboard pe data bhejne ke liye
-//..............
+ 
 app.get("/allHoldings",async(req,res)=>{
   let allHoldings=await HoldingsModel.find({});
   res.json(allHoldings)
@@ -208,19 +199,7 @@ app.get("/allPositions",async(req,res)=>{
   res.json(allPositions);
 })
 
-//..............
-//Post Route
-//..............
-// app.post("/newOrder",async(req,res)=>{
-//   let newOrder=new Ordersmodel({
-//     name:req.body.String,
-//     qty:req.body.Number,
-//     price:req.body.Number,
-//     mode:req.body.String
-//   })
-//   newOrder.save();
-//   res.send("Order Placed"); 
-// })
+ 
 app.post("/newOrder", async (req, res) => {
   console.log("BODY:", req.body);
 
@@ -259,12 +238,6 @@ app.get("/",(req,res)=>{
 app.use("/api/user",userRouter)
 })
 
-
-
-
-//..............
-//Listen Port 
-//..............
 app.listen(PORT, () => {
   console.log("App is Started");
 });
