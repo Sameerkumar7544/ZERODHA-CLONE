@@ -18,9 +18,27 @@ const connectDb=require("./config/mongodb.js")
 const cors=require("cors");
 const { userRouter } = require("./Routes/userRoute.js");
 app.use(cookieParser())
-const allowedOrigins=["http://localhost:5173"]
+// const allowedOrigins=["http://localhost:5173", "https://zerodha-clone-1-fevn.onrender.com"]
 
-app.use(cors({origin:allowedOrigins,credentials:true}));
+// app.use(cors({origin:allowedOrigins,credentials:true}));
+
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Allow-Origin", "https://zerodha-clone-1-fevn.onrender.com");
+  res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  next();
+});
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://zerodha-clone-1-fevn.onrender.com"
+];
+
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true
+}));
+
 // app.use(bodyParser.json());
  
  
@@ -234,8 +252,7 @@ app.use("/api/user",userRouter)
 app.get("/",(req,res)=>{
   console.log("App working");
   res.send("Good")
-  app.use("/api/auth",authRouter)
-app.use("/api/user",userRouter)
+
 })
 
 app.listen(PORT, () => {
