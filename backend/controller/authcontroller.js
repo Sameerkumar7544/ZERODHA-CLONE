@@ -6,12 +6,17 @@ const transporter=require("../config/nodemailer.js")
 
 const register = async (req, res) => {
   const { name, email, password } = req.body;
+  console.log("Signup Request Body:", req.body);
+
   if (!name || !email || !password) {
     return res.json({ success: false, message: "Missing values" });
   }
 
   try {
+      console.log("Email received:", email);
     const exitingUser = await UserModel.findOne({ email });
+    console.log("Existing User:", exitingUser);
+
     if (exitingUser) {
       return res.json({ success: false, message: "User Already exist" });
     }
