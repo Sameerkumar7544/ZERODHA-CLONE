@@ -3,7 +3,6 @@ require("dotenv").config();
 const express=require("express");
 const mongoose=require("mongoose");
 const app=express();
-app.use(express.json()); 
 const cookieParser = require("cookie-parser");
 
 
@@ -17,18 +16,11 @@ const connectDb=require("./config/mongodb.js")
 // const bodyParser=require("body-parser");
 const cors=require("cors");
 const { userRouter } = require("./Routes/userRoute.js");
-app.use(cookieParser())
 // const allowedOrigins=["http://localhost:5173", "https://zerodha-clone-1-fevn.onrender.com"]
 
 // app.use(cors({origin:allowedOrigins,credentials:true}));
 
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-  res.setHeader("Access-Control-Allow-Origin", "https://zerodha-clone-1-fevn.onrender.com");
-  res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  next();
-});
+
 const allowedOrigins = [
   "http://localhost:5173",
   "https://zerodha-clone-1-fevn.onrender.com"
@@ -40,7 +32,10 @@ app.use(cors({
 }));
 
 // app.use(bodyParser.json());
- 
+ app.use(express.json()); 
+ app.use(cookieParser())
+
+
  
 mongoose.connect(url)
   .then(() => console.log("DB connected"))
