@@ -19,6 +19,8 @@ function Login() {
 
 
 const onSubmitHandler = async (e) => {
+    console.log("Backend URL:", backendUrl);   // <-- yahan add karo
+  console.log("Current State:", state); 
   e.preventDefault();
 
   try {
@@ -31,6 +33,7 @@ const onSubmitHandler = async (e) => {
         { name, email, password },
         { withCredentials: true }   // ✅ add this
       );
+  console.log("Signup Response:", data);   // <-- yahan add karo
 
       if (data.success) {
         setIsLoggedin(true);
